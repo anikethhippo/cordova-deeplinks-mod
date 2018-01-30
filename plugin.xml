@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin id="cordova-deeplink" version="2.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+<plugin id="cordova-deeplink" version="2.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
-  <name>Universal Links Plugin</name>
+  <name>Cordova Deeplink</name>
   <description>
     Cordova plugin to add in your application support for Universal Links (iOS 9) and Deep Links (Android).
     Basically, open application through the link in the browser.

@@ -1,4 +1,4 @@
-# Cordova Universal Links Plugin
+# Cordova Deeplink Plugin (fork of the Cordova Universal Links Plugin)
 This Cordova plugin adds support for opening an application from the browser when user clicks on the link. Better known as:
 - [Universal Links on iOS](https://developer.apple.com/library/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html)
 - [Deep Linking on Android](https://developer.android.com/training/app-indexing/deep-linking.html)
@@ -16,7 +16,7 @@ Integration process is simple:
 
 It is important not only to redirect users to your app from the web, but also provide them with the information they were looking for. For example, if someone clicks on `http://mysite.com/news` and get redirected in the app - they are probably hoping to see the `news` page in it. The plugin will help developers with that. In `config.xml` you can specify an event name that is dispatched when user opens the app from the certain link. This way, the appropriate method of your web project will be called, and you can show to user the requested content.
 
-**Note:** At the moment the plugin doesn't support custom url schemes, but they can be added later.
+**Note:** This is only a fork of the Cordova Universal Links Plugin, if you have any questions or issues please refer to https://github.com/nordnet/cordova-universal-links-plugin.
 
 ## Supported Platforms
 - Android 4.0.0 or above.

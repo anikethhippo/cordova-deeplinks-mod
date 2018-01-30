@@ -1,5 +1,18 @@
 # Change Log
 
+## 2.0.1 (2018-01-30)
+
+**Docs:**
+
+- Updated the documentation and tag version of the plugin.
+
+## 2.0.0 (2018-01-30)
+
+**Bug fixes:**
+
+- Created a fork from the Cordova Universal Links Plugin
+- [git branch: 'change/ios_fix_for_Cordova7'] I can't add iOS platform and get the error: Error: Cannot find module '../plugman/platforms/ios'
+
 ## 1.2.1 (2016-10-23)
 
 **Bug fixes:**
