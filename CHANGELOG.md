@@ -1,5 +1,12 @@
 # Change Log
 
+
+## 2.1.0 (2018-02-22)
+
+**Bug fixes:**
+
+- Moved the JavaScript code to listen for application launch by the links within the universalLink plugin
+
 ## 2.0.1 (2018-01-30)
 
 **Docs:**
