@@ -19,7 +19,7 @@ var universalLinks = {
   initialize: function(eventName = 'eventName') {
     this.bindEvents(eventName);
   },
-  
+
   // Bind Event Listeners
   bindEvents: function(eventName) {
     const self = this;
@@ -47,10 +47,7 @@ var universalLinks = {
       var _this = this;
       return new Promise(function (resolve, reject) {
           setTimeout(function () {
-              if (_this.event)
-                  resolve(_this.event);
-              else
-                  reject();
+              resolve(_this.isDeepLink);
           }, milliseconds);
       });
   },
