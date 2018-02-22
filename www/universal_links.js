@@ -19,6 +19,7 @@ var universalLinks = {
   initialize: function(eventName = 'eventName') {
     this.bindEvents(eventName);
   },
+  
   // Bind Event Listeners
   bindEvents: function(eventName) {
     const self = this;
@@ -26,6 +27,7 @@ var universalLinks = {
       self.onDeviceReady(eventName);
     }, false);
   },
+
   // deviceready Event Handler
   onDeviceReady: function(eventName) {
     const self = this;
@@ -33,24 +35,25 @@ var universalLinks = {
       self.didLaunchAppFromLink(event);
     });
   },
+
   // store deeplink event
   didLaunchAppFromLink: function(eventData) {
     this.isDeepLink = eventData;
     console.log('Did launch application from the link: ' ,eventData)
   },
+
   // promise to check if app opened by DeepLink or not
   checkDeepLink: function (milliseconds = 2000) {
-    var _this = this;
-    return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            if (_this.event)
-                resolve(_this.event);
-            else
-                reject();
-        }, milliseconds);
-    });
-}
-};
+      var _this = this;
+      return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+              if (_this.event)
+                  resolve(_this.event);
+              else
+                  reject();
+          }, milliseconds);
+      });
+  },
 
   /**
    * Subscribe to event.
