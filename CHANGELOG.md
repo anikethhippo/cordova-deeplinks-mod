@@ -4,7 +4,7 @@
 
 **Enhancements:**
 
-- Added the validateDeeplink method and new helper attributes: host, eventName, nomatch, regex, value
+- Added the validateDeeplink method and new helper attributes: host, eventName, match, regex, value
 
 ## 2.1.0 (2018-02-22)
 
