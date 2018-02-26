@@ -66,7 +66,7 @@ var universalLinks = {
     var host = this.host;
     if (host) {
       this.dpLink['host'] = host;
-      this.dpLink['nomatch'] = this.dpLink.url.indexOf(host) > -1;
+      this.dpLink['match'] = this.dpLink.url.indexOf(host) > -1;
     }
     if (regex) {
       this.dpLink['regex'] = regex;
@@ -127,11 +127,5 @@ var universalLinks = {
     exec(null, null, PLUGIN_NAME, pluginNativeMethod.UNSUBSCRIBE, [eventName]);
   }
 };
-
-if (!window.plugins) {
-  window.plugins = {};
-}
-
-window.plugins.universalLinks = universalLinks;
 
 module.exports = universalLinks;
