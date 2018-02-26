@@ -128,4 +128,10 @@ var universalLinks = {
   }
 };
 
+if (!window.plugins) {
+  window.plugins = {};
+}
+
+window.plugins.universalLinks = universalLinks;
+
 module.exports = universalLinks;
