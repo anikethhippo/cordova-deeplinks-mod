@@ -14,12 +14,10 @@ pluginNativeMethod = {
 };
 
 var universalLinks = {
-  isDeepLink: null,
+  dpLink: null,
   host: '',
   eventName: 'eventName',
-  nomatch: false,
   regex: /\b[\w-]+$/gm, // /^.+token=/,
-  value: null,
 
   /**
    * Initialize the deeplink
@@ -56,7 +54,7 @@ var universalLinks = {
    *  store deeplink event
    */
   didLaunchAppFromLink: function(eventData) {
-    this.isDeepLink = eventData;
+    this.dpLink = eventData;
     console.log('Did launch application from the link: ' ,eventData)
   },
 
@@ -64,14 +62,13 @@ var universalLinks = {
    * validates the host and uses the regular expression to extract the value from the deeplink
    */
   validateDeeplink: function() {
-    var deeplink = this.isDeepLink;
-    var host = this.host;
-    var regex = this.regex;
-    if (host) {
-      this.nomatch = deeplink.url.indexOf(host) > -1;
+    if (this.host) {
+      this.dpLink['host'] = this.host;
+      this.dpLink['nomatch'] = this.dpLink.url.indexOf(host) > -1;
     }
-    if (regex) {
-      this.value = deeplink.url.match(regex) || deeplink.hash.match(regex) || deeplink.path.match(regex);
+    if (this.regex) {
+      this.dpLink['regex'] = this.regex;
+      this.dpLink['value'] = this.dpLink.url.match(regex) || this.dpLink.hash.match(regex) || this.dpLink.path.match(regex);
     }
   },
 
@@ -84,9 +81,9 @@ var universalLinks = {
       var _this = this;
       return new Promise(function (resolve, reject) {
           setTimeout(function () {
-              if (_this.isDeepLink)
-                _this.validateDeeplink(_this.isDeepLink)
-              resolve(_this.isDeepLink);
+              if (_this.dpLink)
+                _this.validateDeeplink()
+              resolve(_this.dpLink);
           }, milliseconds);
       });
   },
