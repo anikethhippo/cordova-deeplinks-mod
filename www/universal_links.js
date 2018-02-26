@@ -15,38 +15,77 @@ pluginNativeMethod = {
 
 var universalLinks = {
   isDeepLink: null,
+  host: '',
+  eventName: 'eventName',
+  nomatch: false,
+  regex: /\b[\w-]+$/gm, // /^.+token=/,
+  value: null,
 
-  initialize: function(eventName = 'eventName') {
-    this.bindEvents(eventName);
+  /**
+   * Initialize the deeplink
+   */
+  initialize: function() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    this.host = options.host || this.host;
+    this.eventName = options.eventName || this.eventName;
+    this.regex = options.regex || this.regex;
+    this.bindEvents();
   },
 
-  // Bind Event Listeners
-  bindEvents: function(eventName) {
-    const self = this;
+  /**
+   * Bind Event Listeners
+   */
+  bindEvents: function() {
+    const _this = this;
     document.addEventListener('deviceready', () => {
-      self.onDeviceReady(eventName);
+      _this.onDeviceReady();
     }, false);
   },
 
-  // deviceready Event Handler
-  onDeviceReady: function(eventName) {
-    const self = this;
-    this.subscribe(eventName, (event) => {
-      self.didLaunchAppFromLink(event);
+  /**
+   *  deviceready Event Handler
+   */
+  onDeviceReady: function() {
+    const _this = this;
+    this.subscribe(_this.eventName, (event) => {
+      _this.didLaunchAppFromLink(event);
     });
   },
 
-  // store deeplink event
+  /**
+   *  store deeplink event
+   */
   didLaunchAppFromLink: function(eventData) {
     this.isDeepLink = eventData;
     console.log('Did launch application from the link: ' ,eventData)
   },
 
-  // promise to check if app opened by DeepLink or not
+  /**
+   * validates the host and uses the regular expression to extract the value from the deeplink
+   */
+  validateDeeplink: function() {
+    var deeplink = this.isDeepLink;
+    var host = this.host;
+    var regex = this.regex;
+    if (host) {
+      this.nomatch = deeplink.url.indexOf(host) > -1;
+    }
+    if (regex) {
+      this.value = deeplink.url.match(regex) || deeplink.hash.match(regex) || deeplink.path.match(regex);
+    }
+  },
+
+  /**
+   * promise to check if the app uses the DeepLink or not
+   *
+   * @param {number} milliseconds - Optional. The number of milliseconds to wait before executing the code. If omitted, the value 0 is used
+   */
   checkDeepLink: function (milliseconds = 2000) {
       var _this = this;
       return new Promise(function (resolve, reject) {
           setTimeout(function () {
+              if (_this.isDeepLink)
+                _this.validateDeeplink(_this.isDeepLink)
               resolve(_this.isDeepLink);
           }, milliseconds);
       });
