@@ -62,12 +62,14 @@ var universalLinks = {
    * validates the host and uses the regular expression to extract the value from the deeplink
    */
   validateDeeplink: function() {
-    if (this.host) {
-      this.dpLink['host'] = this.host;
+    var regex = this.regex;
+    var host = this.host;
+    if (host) {
+      this.dpLink['host'] = host;
       this.dpLink['nomatch'] = this.dpLink.url.indexOf(host) > -1;
     }
-    if (this.regex) {
-      this.dpLink['regex'] = this.regex;
+    if (regex) {
+      this.dpLink['regex'] = regex;
       this.dpLink['value'] = this.dpLink.url.match(regex) || this.dpLink.hash.match(regex) || this.dpLink.path.match(regex);
     }
   },
