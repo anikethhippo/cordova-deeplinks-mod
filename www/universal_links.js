@@ -66,7 +66,7 @@ var universalLinks = {
     var host = this.host;
     if (host) {
       this.dpLink['host'] = host;
-      this.dpLink['match'] = this.dpLink.url.indexOf(host) > -1;
+      this.dpLink['nomatch'] = this.dpLink.url.indexOf(host) > -1;
     }
     if (regex) {
       this.dpLink['regex'] = regex;
