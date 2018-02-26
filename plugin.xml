@@ -103,4 +103,19 @@
     <source-file src="src/android/com/nordnetab/cordova/ul/UniversalLinksPlugin.java" target-dir="src/com/nordnetab/cordova/ul/"/>
 
   </platform>
+
+      <!-- browser -->
+    <platform name="browser">
+        <config-file target="config.xml" parent="/*">
+          <feature name="UniversalLinks">
+              <param name="browser-package" value="UniversalLinks" />
+          </feature>
+        </config-file>
+        <!-- <js-module name="universalLinks" src="www/universal_links.js">
+          <clobbers target="universalLinks"/>
+        </js-module> -->
+        <js-module name="universalLinks" src="src/browser/universal_links.js">
+            <runs />
+        </js-module>
+    </platform>
 </plugin>
