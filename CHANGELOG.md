@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.3.0 (2018-02-26)
+
+**Docs:**
+
+- Updated the documentation
+
 ## 2.2.0 (2018-02-26)
 
 **Enhancements:**

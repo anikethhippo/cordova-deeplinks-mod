@@ -99,35 +99,45 @@ var app = {
 
 app.initialize();
 ```
+##### From v1.1.x to v2.x.x
 
-As you can see, now you subscribe to event via `universalLinks` module when `deviceready` is fired. Actually, you can subscribe to it in any place of your application: plugin stores the event internally and dispatches it when there is a subscriber for it.
+From v2.x.x it supports typescript code, adding a promise and other helper attributes:
 
-Also, in v1.0.x `ul_didLaunchAppFromLink` was used as a default event name. From v1.1.0 you can just do like that:
 ```js
-universalLinks.subscribe(null, callbackFunction);
+  declare var universalLinks: any; // declare global variable to use non-native ionic plugin
+
+  /**
+  * optional parameters:
+  *  @param host: String       Optional. Specific domain to match with the associated domain. If omitted, the value '' is used
+  *  @param eventName: String  Optional. Name of the event, that is used to match application launch from this host to a callback on the JS side. If omitted, the value      *                            'null' is used
+  *  @param regex: RegExp      Optional. Regular expression to extract a specific value from the deeplink (if it exists). If omitted, the value /\b[\w-]+$/gm is used
+  */
+  
+  if (typeof universalLinks !== 'undefined') // use this to avoid compile errors on browser platform
+      universalLinks.initialize({host: 'https://my-domain.com/'}); // change the default host to match "my-domain.com" host
+
+  /**
+  * returns a Promise that is resolved with the given deeplink, if it exists, or a null value
+  *  @param milliseconds: Number   Optional. The number of milliseconds to wait before executing the code. If omitted, the value 2000 is used
+  */
+  universalLinks.checkDeepLink()
+    .then(dpLink => {
+      ...
+    })
+
+  // NOTE: if it exists, the deeplink variable is also accessible using "universalLinks.dpLink"
+
+  /** HELPER ATTRIBUTES */
+
+  /** @type {boolean} - It returns true if the magic-link match the specific domain */
+  universalLinks.dpLink.match 
+
+  /** @type {Array} - It returns the value extracted from the deeplink object using the regex parameter */
+  universalLinks.dpLink.value 
+
 ```
+
 If you didn't specify event name for the `path` or `host` - in the JS code just pass `null` as event name. But just for readability you might want to specify it `config.xml`.
-
-### How to build plugin in Xcode 6
-
-If you are still using Xcode 6 and there is no way for you to upgrade right now to Xcode 7 - follow the instructions below in order to use this plugin.
-
-1. Clone the `xcode6-support` branch of the plugin from the GitHub:
-
-  ```sh
-  mkdir /Workspace/Mobile/CordovaPlugins
-  cd /Workspace/Mobile/CordovaPlugins
-  git clone -b xcode6-support https://github.com/nordnet/cordova-universal-links-plugin.git
-  ```
-
-2. Go to your applications project and add plugin from the cloned source:
-
-  ```sh
-  cd /Workspace/Mobile/CoolApp
-  cordova plugin add /Workspace/Mobile/CordovaPlugins/cordova-universal-links-plugin/
-  ```
-
-Now you can build your project in Xcode 6.
 
 ### Cordova config preferences
 
