@@ -1,4 +1,7 @@
-# Cordova Deeplinks Plugin (fork of the Cordova Universal Links Plugin)
+# Cordova Deeplinks Plugin
+
+**NOTE:** This is a fork from the original cordova plugin "cordova-deeplinks" that in turn is a fork from "cordova-universal-links-plugin"
+
 This Cordova plugin adds support for opening an application from the browser when user clicks on the link. Better known as:
 - [Universal Links on iOS](https://developer.apple.com/library/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html)
 - [Deep Linking on Android](https://developer.android.com/training/app-indexing/deep-linking.html)
@@ -26,7 +29,6 @@ It is important not only to redirect users to your app from the web, but also pr
 
 ## Documentation
 - [Installation](#installation)
-- [Migrating from previous versions](#migrating-from-previous-versions)
 - [How to build plugin in Xcode 6](#how-to-build-plugin-in-xcode-6)
 - [Cordova config preferences](#cordova-config-preferences)
 - [Application launch handling](#application-launch-handling)
@@ -57,87 +59,6 @@ It is also possible to install via repo url directly (**unstable**)
 ```sh
 cordova plugin add https://github.com/e-imaxina/cordova-plugin-deeplinks.git
 ```
-
-### Migrating from previous versions
-
-##### From v1.0.x to v1.1.x
-
-In v1.0.x to capture universal links events you had to subscribe on them like so:
-```js
-document.addEventListener('eventName', didLaunchAppFromLink, false);
-
-function didLaunchAppFromLink(event) {
-  var urlData = event.detail;
-  console.log('Did launch application from the link: ' + urlData.url);
-  // do some work
-}
-```
-And there were some problems with the timing: event could be fired long before you were subscribing to it.
-
-From v1.1.0 it changes to the familiar Cordova style:
-```js
-var app = {
-  // Application Constructor
-  initialize: function() {
-    this.bindEvents();
-  },
-
-  // Bind Event Listeners
-  bindEvents: function() {
-    document.addEventListener('deviceready', this.onDeviceReady, false);
-  },
-
-  // deviceready Event Handler
-  onDeviceReady: function() {
-    universalLinks.subscribe('eventName', app.didLaunchAppFromLink);
-  },
-
-  didLaunchAppFromLink: function(eventData) {
-    alert('Did launch application from the link: ' + eventData.url);
-  }
-};
-
-app.initialize();
-```
-##### From v1.1.x to v2.x.x
-
-From v2.x.x it supports typescript code, adding a promise and other helper attributes:
-
-```js
-  declare var universalLinks: any; // declare global variable to use non-native ionic plugin
-
-  /**
-  * optional parameters:
-  *  @param host: String       Optional. Specific domain to match with the associated domain. If omitted, the value '' is used
-  *  @param eventName: String  Optional. Name of the event, that is used to match application launch from this host to a callback on the JS side. If omitted, the value      *                            'null' is used
-  *  @param regex: RegExp      Optional. Regular expression to extract a specific value from the deeplink (if it exists). If omitted, the value /\b[\w-]+$/gm is used
-  */
-  
-  if (typeof universalLinks !== 'undefined') // use this to avoid compile errors on browser platform
-      universalLinks.initialize({host: 'https://my-domain.com/'}); // change the default host to match "my-domain.com" host
-
-  /**
-  * returns a Promise that is resolved with the given deeplink, if it exists, or a null value
-  *  @param milliseconds: Number   Optional. The number of milliseconds to wait before executing the code. If omitted, the value 2000 is used
-  */
-  universalLinks.checkDeepLink()
-    .then(dpLink => {
-      ...
-    })
-
-  // NOTE: if it exists, the deeplink variable is also accessible using "universalLinks.dpLink"
-
-  /** HELPER ATTRIBUTES */
-
-  /** @type {boolean} - It returns true if the magic-link match the specific domain */
-  universalLinks.dpLink.match 
-
-  /** @type {Array} - It returns the value extracted from the deeplink object using the regex parameter */
-  universalLinks.dpLink.value 
-
-```
-
-If you didn't specify event name for the `path` or `host` - in the JS code just pass `null` as event name. But just for readability you might want to specify it `config.xml`.
 
 ### Cordova config preferences
 
