@@ -23,6 +23,18 @@ function writePreferences(cordovaContext, pluginPreferences) {
   var cleanManifest;
   var updatedManifest;
 
+  /**
+   * Cordova-Android 7.0+ FIX
+   *
+   * cordova-android 7.0+ changes the path to AndroidManifest
+   * So if manifestSource/manifestData is empty (or undefined) we assume is cordova-android 7.0+
+   * @see http://cordova.apache.org/announcements/2017/12/04/cordova-android-7.0.0.html
+   */
+  if (!manifestSource) {
+      pathToManifest = path.join(cordovaContext.opts.projectRoot, 'platforms', 'android', 'app', 'src', 'main', 'AndroidManifest.xml');
+      manifestSource = xmlHelper.readXmlAsJson(pathToManifest);
+  }
+
   // remove old intent-filters
   cleanManifest = removeOldOptions(manifestSource);
 
