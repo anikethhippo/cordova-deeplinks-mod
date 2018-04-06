@@ -34,8 +34,8 @@ var universalLinks = {
    * Bind Event Listeners
    */
   bindEvents: function() {
-    const _this = this;
-    document.addEventListener('deviceready', () => {
+    var _this = this;
+    document.addEventListener('deviceready', function() {
       _this.onDeviceReady();
     }, false);
   },
@@ -44,8 +44,8 @@ var universalLinks = {
    *  deviceready Event Handler
    */
   onDeviceReady: function() {
-    const _this = this;
-    this.subscribe(_this.eventName, (event) => {
+    var _this = this;
+    this.subscribe(_this.eventName, function(event) {
       _this.didLaunchAppFromLink(event);
     });
   },
@@ -79,14 +79,14 @@ var universalLinks = {
    *
    * @param {number} milliseconds - Optional. The number of milliseconds to wait before executing the code. If omitted, the value 0 is used
    */
-  checkDeepLink: function (milliseconds = 2000) {
+  checkDeepLink: function (milliseconds) {
       var _this = this;
       return new Promise(function (resolve, reject) {
           setTimeout(function () {
               if (_this.dpLink)
                 _this.validateDeeplink()
               resolve(_this.dpLink);
-          }, milliseconds);
+          }, milliseconds || 0);
       });
   },
 
