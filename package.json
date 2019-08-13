@@ -41,5 +41,11 @@
   "bugs": {
     "url": "https://github.com/e-imaxina/cordova-plugin-deeplinks/issues"
   },
-  "homepage": "https://github.com/e-imaxina/cordova-plugin-deeplinks#readme"
+  "homepage": "https://github.com/e-imaxina/cordova-plugin-deeplinks#readme",
+  "devDependencies": {
+    "standard-version": "^7.0.0"
+  },
+  "scripts": {
+    "release": "standard-version"
+  }
 }
